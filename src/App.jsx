@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Rooms from "./pages/Rooms";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         {/* 로그인 페이지 */}
         <Route path="/login" element={<Login />} />
 
-        {/* 나중에 방 페이지 등도 추가 가능 */}
+        {/* 코드룸 페이지 */}
+        <Route path="/rooms" element={<Rooms />} />
       </Routes>
     </BrowserRouter>
   );

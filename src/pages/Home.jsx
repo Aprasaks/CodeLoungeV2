@@ -42,7 +42,10 @@ function Home() {
             Welcome to <span className="logo">CodeLounge</span>
           </h1>
           <p>실시간으로 함께 코딩하는 공간. 협업의 즐거움을 느껴보세요.</p>
-          <button className="btn-start">시작하기 →</button>
+          {/* 시작하기버튼으로만 코드룸 입장가능 */}
+          <button className="btn-start" onClick={() => navigate("/rooms")}>
+            시작하기 →
+          </button>
         </section>
 
         <section className="features">

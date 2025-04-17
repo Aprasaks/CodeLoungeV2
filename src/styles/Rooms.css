@@ -1,0 +1,74 @@
+.rooms-container {
+  min-height: 100vh;
+  background-color: #121212; /* 항상 다크모드 */
+  color: white;
+  padding: 60px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 방 리스트 */
+.room-list {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+/* 개별 방 카드 */
+.room-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden; /* ⭐️ 이미지 모서리 잘리게 */
+  width: 280px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.room-card:hover {
+  background-color: #2a2a2a;
+  transform: translateY(-4px);
+}
+
+/* 방 생성 버튼 */
+.create-room-btn {
+  background-color: #5c67f2;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-room-btn:hover {
+  background-color: #4a54c6;
+}
+
+.room-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.room-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 16px;
+}
+
+.room-desc {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0 16px 16px;
+}
+
+.room-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block; /* ⭐️ 공백 제거 */
+}
