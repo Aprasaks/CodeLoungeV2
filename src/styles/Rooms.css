@@ -72,3 +72,35 @@
   object-fit: cover;
   display: block; /* ⭐️ 공백 제거 */
 }
+
+/* 방만들기 폼 */
+.room-form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 300px;
+}
+
+.room-input {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.submit-room-btn {
+  padding: 10px;
+  background-color: #5c67f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-room-btn:hover {
+  background-color: #4a54c6;
+}
