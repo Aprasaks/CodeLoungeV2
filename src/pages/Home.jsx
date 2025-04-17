@@ -1,4 +1,5 @@
 //첫 시작 홈페이지 메인화면
+import { useNavigate } from "react-router-dom"; //로그인 전환 라우터
 import "../styles/Home.css";
 import FeatureBox from "../components/FeatureBox";
 
@@ -21,12 +22,17 @@ const features = [
 ];
 
 function Home() {
+  const navigate = useNavigate(); // 라우터 페이지 이동용 훅
+
   return (
     <div className="home-container">
       {/* 헤더 */}
       <header className="top-header">
         <div className="logo">CodeLounge</div>
-        <button className="login-btn">로그인</button>
+        {/* 여기 로그인 버튼을 클릭하면 /login 으로 이동 */}
+        <button className="login-btn" onClick={() => navigate("/login")}>
+          로그인
+        </button>
       </header>
 
       {/* 메인 */}

@@ -1,0 +1,81 @@
+/* src/styles/Login.css */
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-wrapper {
+  width: 700px;
+  height: 400px;
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.5s ease;
+}
+
+.form {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+input {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #5c67f2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4b55cc;
+}
+
+span {
+  color: #5c67f2;
+  cursor: pointer;
+}
+
+.signup-form {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: white;
+  height: 100%;
+}
+
+.login-container.signup-mode .signup-form {
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.login-container.signup-mode .login-form {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
