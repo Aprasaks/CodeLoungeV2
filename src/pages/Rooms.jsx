@@ -1,6 +1,7 @@
 import "../styles/Rooms.css"; // 스타일은 따로 관리할 예정
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Rooms() {
   const [showForm, setShowForm] = useState(false);
@@ -8,6 +9,13 @@ function Rooms() {
   const [desc, setDesc] = useState(""); // 방 설명
   const [rooms, setRooms] = useState([]); // 방 목록
   const navigate = useNavigate();
+
+  //첫화면 로딩 새로고침
+  useEffect(() => {
+    const savedRooms = JSON.parse(localStorage.getItem("codeRooms")) || [];
+    setRooms(savedRooms);
+  }, []);
+
   const handleCardClick = (roomId) => {
     navigate(`/room/${roomId}`);
   };
@@ -26,7 +34,12 @@ function Rooms() {
       img: `https://picsum.photos/300/200?sig=${Date.now()}`, // 랜덤 이미지
     };
 
-    setRooms((prev) => [...prev, newRoom]);
+    //로컬에 저장
+    const updatedRooms = [...rooms, newRoom];
+    setRooms(updatedRooms);
+    localStorage.setItem("codeRooms", JSON.stringify(updatedRooms)); // ✅ 로컬에 저장
+
+    setRooms(updatedRooms); // ✅ 상태 동기화
 
     // 입력값 초기화 + 폼 닫기
     setTitle("");

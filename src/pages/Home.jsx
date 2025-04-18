@@ -47,10 +47,25 @@ function Home() {
       {/* 헤더 */}
       <header className="top-header">
         <div className="logo">CodeLounge</div>
-        {/* 여기 로그인 버튼을 클릭하면 /login 으로 이동 */}
-        <button className="login-btn" onClick={() => navigate("/login")}>
-          로그인
-        </button>
+
+        {localStorage.getItem("currentUser") ? (
+          <div className="user-info">
+            <span>{JSON.parse(localStorage.getItem("currentUser")).id} 님! 환영합니다</span>
+            <button
+              className="logout-btn"
+              onClick={() => {
+                localStorage.removeItem("currentUser");
+                window.location.reload(); // 새로고침으로 반영
+              }}
+            >
+              로그아웃
+            </button>
+          </div>
+        ) : (
+          <button className="login-btn" onClick={() => navigate("/login")}>
+            로그인
+          </button>
+        )}
       </header>
 
       {/* 메인 */}
