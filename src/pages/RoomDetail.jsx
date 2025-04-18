@@ -10,6 +10,9 @@ function RoomDetail() {
   const rooms = JSON.parse(localStorage.getItem("codeRooms")) || [];
   const room = rooms.find((r) => r.id === Number(id));
 
+  //고유키
+  const storageKey = `roomCode_${id}`;
+
   const [activeTab, setActiveTab] = useState("html");
   const [viewMode, setViewMode] = useState("preview");
   const [htmlCode, setHtmlCode] = useState("");
@@ -20,6 +23,30 @@ function RoomDetail() {
   const [runKey, setRunKey] = useState(0); // iframe 강제 리렌더용
   const iframeRef = useRef();
   const [showChat, setShowChat] = useState(false);
+
+  //코드불러오기
+  useEffect(() => {
+    const savedCode = JSON.parse(localStorage.getItem(storageKey));
+    if (savedCode) {
+      setHtmlCode(savedCode.html || "");
+      setCssCode(savedCode.css || "");
+      setJsCode(savedCode.js || "");
+    }
+  }, [id]);
+
+  //자동저장하기
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const codeToSave = {
+        html: htmlCode,
+        css: cssCode,
+        js: jsCode,
+      };
+      localStorage.setItem(storageKey, JSON.stringify(codeToSave));
+    }, 500); // 0.5초 뒤 저장 (입력 중복 방지)
+
+    return () => clearTimeout(timeout); // 타이머 초기화
+  }, [htmlCode, cssCode, jsCode, storageKey]);
 
   //채팅입력
   const handleSendMessage = () => {
