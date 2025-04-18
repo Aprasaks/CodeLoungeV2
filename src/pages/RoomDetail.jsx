@@ -54,6 +54,14 @@ function RoomDetail() {
     setShowChat((prev) => !prev);
   };
 
+  //프로필
+  const [showParticipants, setShowParticipants] = useState(false);
+  const [participants, setParticipants] = useState([
+    "FE_10_이슬비",
+    "FE_10_이상호",
+    "FE_10_천승현",
+  ]);
+
   // 콘솔용 HTML 생성 함수
   const generateConsoleCode = () => {
     return `
@@ -95,7 +103,13 @@ function RoomDetail() {
         <div className="room-title">{room?.title || "코드방"}</div>
         <div className="chat-box">
           <div className="participant-info">
-            <span className="participant-icon">👤</span>
+            <span
+              className="participant-icon"
+              onClick={() => setShowParticipants(!showParticipants)}
+            >
+              👤
+            </span>
+
             <span className="participant-count">1</span>
           </div>
           <button className="chat-button" onClick={handleToggleChat}>
@@ -238,6 +252,25 @@ function RoomDetail() {
               }}
             />
             <button onClick={handleSendMessage}>전송</button>
+          </div>
+        </div>
+      )}
+
+      {/* 프로필 보여주기 */}
+      {showParticipants && (
+        <div className="participant-panel">
+          <div className="participant-header">
+            참여자 목록
+            <button className="close-chat" onClick={() => setShowParticipants(false)}>
+              ✕
+            </button>
+          </div>
+          <div className="participant-list">
+            {participants.map((name, index) => (
+              <div key={index} className="participant-item">
+                {name}
+              </div>
+            ))}
           </div>
         </div>
       )}
