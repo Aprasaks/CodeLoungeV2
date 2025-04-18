@@ -78,6 +78,6 @@ body.theme-dark1 {
 
   js: `document.querySelector(".darkmode").addEventListener("click", function () {
   document.body.classList.toggle("theme-dark1");
-});
+})
 `,
 };

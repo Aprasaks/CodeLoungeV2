@@ -54,7 +54,7 @@ function RoomDetail() {
       setCssCode(htmlPracticeCode.css);
       setJsCode(htmlPracticeCode.js);
     }
-    if (id === "1002") {
+    if (!savedCode && id === "1002") {
       localStorage.setItem(storageKey, JSON.stringify(jsStudyCode));
       setHtmlCode(jsStudyCode.html);
       setCssCode(jsStudyCode.css);
