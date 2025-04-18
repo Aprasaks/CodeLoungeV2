@@ -48,17 +48,26 @@ function RoomDetail() {
   //예시코드
   useEffect(() => {
     const savedCode = localStorage.getItem(storageKey);
-    if (!savedCode && id === "1001") {
-      localStorage.setItem(storageKey, JSON.stringify(htmlPracticeCode));
-      setHtmlCode(htmlPracticeCode.html);
-      setCssCode(htmlPracticeCode.css);
-      setJsCode(htmlPracticeCode.js);
-    }
-    if (!savedCode && id === "1002") {
-      localStorage.setItem(storageKey, JSON.stringify(jsStudyCode));
-      setHtmlCode(jsStudyCode.html);
-      setCssCode(jsStudyCode.css);
-      setJsCode(jsStudyCode.js);
+
+    // 저장된 코드가 없을 때만 실행
+    if (!savedCode) {
+      if (id === "1001") {
+        localStorage.setItem(storageKey, JSON.stringify(htmlPracticeCode));
+        setHtmlCode(htmlPracticeCode.html);
+        setCssCode(htmlPracticeCode.css);
+        setJsCode(htmlPracticeCode.js);
+      } else if (id === "1002") {
+        localStorage.setItem(storageKey, JSON.stringify(jsStudyCode));
+        setHtmlCode(jsStudyCode.html);
+        setCssCode(jsStudyCode.css);
+        setJsCode(jsStudyCode.js);
+      }
+    } else {
+      // 저장된 코드가 있을 경우에도 복원 로직 추가 (필요 시)
+      const parsed = JSON.parse(savedCode);
+      setHtmlCode(parsed.html || "");
+      setCssCode(parsed.css || "");
+      setJsCode(parsed.js || "");
     }
   }, [id]);
 
