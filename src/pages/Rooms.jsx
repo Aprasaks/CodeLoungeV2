@@ -3,6 +3,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+// 기본예시
+const initialRooms = [
+  {
+    id: 1001,
+    title: "HTML 연습방",
+    desc: "기본 HTML/CSS/JS 코드가 포함된 방입니다.",
+    img: "https://picsum.photos/300/200?random=1",
+    owner: "admin",
+  },
+];
+
 function Rooms() {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState(""); // 방 제목
@@ -12,8 +23,13 @@ function Rooms() {
 
   //첫화면 로딩 새로고침
   useEffect(() => {
-    const savedRooms = JSON.parse(localStorage.getItem("codeRooms")) || [];
-    setRooms(savedRooms);
+    const savedRooms = JSON.parse(localStorage.getItem("codeRooms"));
+    if (!savedRooms || savedRooms.length === 0) {
+      localStorage.setItem("codeRooms", JSON.stringify(initialRooms));
+      setRooms(initialRooms);
+    } else {
+      setRooms(savedRooms);
+    }
   }, []);
 
   const handleCardClick = (roomId) => {
