@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import "../styles/RoomDetail.css";
 import { useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
+//기본 예시코드
+import { htmlPracticeCode } from "../defaultCode/htmlPractice";
 
 function RoomDetail() {
   const { id } = useParams();
@@ -39,6 +41,17 @@ function RoomDetail() {
       setHtmlCode(savedCode.html || "");
       setCssCode(savedCode.css || "");
       setJsCode(savedCode.js || "");
+    }
+  }, [id]);
+
+  //예시코드
+  useEffect(() => {
+    const savedCode = localStorage.getItem(storageKey);
+    if (!savedCode && id === "1001") {
+      localStorage.setItem(storageKey, JSON.stringify(htmlPracticeCode));
+      setHtmlCode(htmlPracticeCode.html);
+      setCssCode(htmlPracticeCode.css);
+      setJsCode(htmlPracticeCode.js);
     }
   }, [id]);
 
