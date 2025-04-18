@@ -38,8 +38,8 @@ function Login() {
     // ✅ 로그인 성공 시 유저 정보 저장 (선택 사항)
     localStorage.setItem("currentUser", JSON.stringify(matchedUser));
 
-    // ⬇️ 방 목록 페이지로 이동
-    navigate("/rooms");
+    // 로그인성공하더라도 무조건 첫페이지
+    navigate("/");
   };
 
   // ✅ 회원가입 함수
