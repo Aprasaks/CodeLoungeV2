@@ -49,53 +49,53 @@ function Login() {
   return (
     <div className={`login-container ${isLogin ? "login-mode" : "signup-mode"}`}>
       <div className="form-wrapper">
-        {/* 로그인 폼 */}
-        <div className="form login-form">
-          <h2>Sign In</h2>
-          <input
-            type="email"
-            placeholder="Email"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>로그인</button>
-          <p>
-            계정이 없으신가요? <span onClick={() => setIsLogin(false)}>회원가입</span>
-          </p>
-        </div>
-
-        {/* 회원가입 폼 */}
-        <div className="form signup-form">
-          <h2>Sign Up</h2>
-          <input
-            type="text"
-            placeholder="Name"
-            value={signupName}
-            onChange={(e) => setSignupName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={signupEmail}
-            onChange={(e) => setSignupEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-          />
-          <button onClick={handleSignup}>회원가입</button>
-          <p>
-            이미 계정이 있으신가요? <span onClick={() => setIsLogin(true)}>로그인</span>
-          </p>
-        </div>
+        {isLogin ? (
+          <div className="form login-form">
+            <h2>Sign In</h2>
+            <input
+              type="email"
+              placeholder="Email"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <button onClick={handleLogin}>로그인</button>
+            <p>
+              계정이 없으신가요? <span onClick={() => setIsLogin(false)}>회원가입</span>
+            </p>
+          </div>
+        ) : (
+          <div className="form signup-form">
+            <h2>Sign Up</h2>
+            <input
+              type="text"
+              placeholder="Name"
+              value={signupName}
+              onChange={(e) => setSignupName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+            />
+            <button onClick={handleSignup}>회원가입</button>
+            <p>
+              이미 계정이 있으신가요? <span onClick={() => setIsLogin(true)}>로그인</span>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
