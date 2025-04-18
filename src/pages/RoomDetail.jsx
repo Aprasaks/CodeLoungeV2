@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "../styles/RoomDetail.css";
 import { useNavigate } from "react-router-dom";
+import Editor from "@monaco-editor/react";
 
 function RoomDetail() {
   const { id } = useParams();
@@ -139,27 +140,51 @@ function RoomDetail() {
 
           <div className="left-panel">
             {activeTab === "html" && (
-              <textarea
-                className="code-input"
-                placeholder="HTML 입력"
+              <Editor
+                height="100%"
+                defaultLanguage="html"
                 value={htmlCode}
-                onChange={(e) => setHtmlCode(e.target.value)}
+                onChange={(value) => setHtmlCode(value || "")}
+                theme="vs-dark"
+                options={{
+                  fontSize: 14,
+                  minimap: { enabled: false },
+                  automaticLayout: true,
+                }}
               />
             )}
+
             {activeTab === "css" && (
-              <textarea
-                className="code-input"
-                placeholder="CSS 입력"
+              <Editor
+                height="100%"
+                defaultLanguage="css"
                 value={cssCode}
-                onChange={(e) => setCssCode(e.target.value)}
+                onChange={(value) => setCssCode(value || "")}
+                theme="vs-dark"
+                options={{
+                  fontSize: 14,
+                  minimap: { enabled: false },
+                  automaticLayout: true,
+                  autoClosingBrackets: "always",
+                  autoClosingQuotes: "always",
+                }}
               />
             )}
+
             {activeTab === "js" && (
-              <textarea
-                className="code-input"
-                placeholder="JS 입력"
+              <Editor
+                height="100%"
+                defaultLanguage="javascript"
                 value={jsCode}
-                onChange={(e) => setJsCode(e.target.value)}
+                onChange={(value) => setJsCode(value || "")}
+                theme="vs-dark"
+                options={{
+                  fontSize: 14,
+                  minimap: { enabled: false },
+                  automaticLayout: true,
+                  autoClosingBrackets: "always",
+                  autoClosingQuotes: "always",
+                }}
               />
             )}
           </div>
