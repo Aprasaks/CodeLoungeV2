@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 //기본 예시코드
 import { htmlPracticeCode } from "../defaultCode/htmlPractice";
+import { jsStudyCode } from "../defaultCode/jsStudy";
 
 function RoomDetail() {
   const { id } = useParams();
@@ -52,6 +53,12 @@ function RoomDetail() {
       setHtmlCode(htmlPracticeCode.html);
       setCssCode(htmlPracticeCode.css);
       setJsCode(htmlPracticeCode.js);
+    }
+    if (id === "1002") {
+      localStorage.setItem(storageKey, JSON.stringify(jsStudyCode));
+      setHtmlCode(jsStudyCode.html);
+      setCssCode(jsStudyCode.css);
+      setJsCode(jsStudyCode.js);
     }
   }, [id]);
 

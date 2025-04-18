@@ -7,9 +7,16 @@ import { useEffect } from "react";
 const initialRooms = [
   {
     id: 1001,
-    title: "HTML 연습방",
-    desc: "기본 HTML/CSS/JS 코드가 포함된 방입니다.",
+    title: "계산기연습방",
+    desc: "아기자기한 계산기코드(feat.승현).",
     img: "https://picsum.photos/300/200?random=1",
+    owner: "admin",
+  },
+  {
+    id: 1002,
+    title: "다크모드방",
+    desc: "이게 다크모드다.",
+    img: "https://picsum.photos/300/200?random=2",
     owner: "admin",
   },
 ];
