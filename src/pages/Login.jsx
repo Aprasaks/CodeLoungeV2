@@ -1,49 +1,77 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 function Login() {
-  const navigate = useNavigate(); // 페이지 이동을 위한 훅 사용
-  const [isLogin, setIsLogin] = useState(true); // 로그인 / 회원가입 모드 전환
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(true);
 
-  // 로그인 상태: 이메일, 비밀번호
+  // 로그인 상태
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // 회원가입 상태: 닉네임, 이메일, 비밀번호
+  // 회원가입 상태
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
 
-  // 로그인 버튼 클릭 시 실행되는 함수
+  // ✅ 로그인 함수
   const handleLogin = () => {
     if (!loginEmail || !loginPassword) {
       alert("이메일과 비밀번호를 모두 입력해주세요.");
       return;
     }
 
-    console.log("✅ 로그인 시도:");
-    console.log("이메일:", loginEmail);
-    console.log("비밀번호:", loginPassword);
+    // ⬇️ 저장된 유저 목록 불러오기
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // 임시로 로그인 성공했다고 가정하고 페이지 이동
-    navigate("/rooms"); // 나중에 rooms 페이지로 연결
+    // ⬇️ 입력한 이메일/비밀번호와 일치하는 유저 찾기
+    const matchedUser = users.find(
+      (user) => user.email === loginEmail && user.password === loginPassword
+    );
+
+    if (!matchedUser) {
+      alert("이메일 또는 비밀번호가 틀렸습니다.");
+      return;
+    }
+
+    // ✅ 로그인 성공 시 유저 정보 저장 (선택 사항)
+    localStorage.setItem("currentUser", JSON.stringify(matchedUser));
+
+    // ⬇️ 방 목록 페이지로 이동
+    navigate("/rooms");
   };
 
-  // 회원가입 버튼 클릭 시 실행되는 함수
+  // ✅ 회원가입 함수
   const handleSignup = () => {
     if (!signupName || !signupEmail || !signupPassword) {
       alert("모든 값을 입력해주세요.");
       return;
     }
 
-    console.log("✅ 회원가입 시도:");
-    console.log("닉네임:", signupName);
-    console.log("이메일:", signupEmail);
-    console.log("비밀번호:", signupPassword);
+    // ⬇️ 새로운 유저 정보 생성
+    const newUser = {
+      name: signupName,
+      email: signupEmail,
+      password: signupPassword,
+    };
 
-    // 여기선 실제 저장 안하고 상태만 확인
-    setIsLogin(true); // 다시 로그인 화면으로 전환
+    // ⬇️ 기존 유저 목록 불러오기
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // ⬇️ 중복 이메일 방지
+    const alreadyExists = users.some((u) => u.email === signupEmail);
+    if (alreadyExists) {
+      alert("이미 가입된 이메일입니다.");
+      return;
+    }
+
+    // ✅ 유저 목록에 추가 후 저장
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+    setIsLogin(true); // 로그인 화면으로 전환
   };
 
   return (

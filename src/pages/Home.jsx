@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom"; //로그인 전환 라우터
 import "../styles/Home.css";
 import FeatureBox from "../components/FeatureBox";
+import Swal from "sweetalert2";
 
 const features = [
   {
@@ -24,6 +25,23 @@ const features = [
 function Home() {
   const navigate = useNavigate(); // 라우터 페이지 이동용 훅
 
+  const handleStartClick = () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser) {
+      navigate("/rooms");
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "로그인이 필요합니다",
+        text: "시작하기 전에 먼저 로그인해주세요.",
+        confirmButtonText: "확인",
+        background: "#1e1e1e",
+        color: "#fff",
+        confirmButtonColor: "#5c67f2",
+      });
+    }
+  };
+
   return (
     <div className="home-container">
       {/* 헤더 */}
@@ -43,7 +61,7 @@ function Home() {
           </h1>
           <p>실시간으로 함께 코딩하는 공간. 협업의 즐거움을 느껴보세요.</p>
           {/* 시작하기버튼으로만 코드룸 입장가능 */}
-          <button className="btn-start" onClick={() => navigate("/rooms")}>
+          <button className="btn-start" onClick={handleStartClick}>
             시작하기 →
           </button>
         </section>
