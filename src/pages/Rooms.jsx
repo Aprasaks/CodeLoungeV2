@@ -1,11 +1,16 @@
 import "../styles/Rooms.css"; // 스타일은 따로 관리할 예정
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Rooms() {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState(""); // 방 제목
   const [desc, setDesc] = useState(""); // 방 설명
   const [rooms, setRooms] = useState([]); // 방 목록
+  const navigate = useNavigate();
+  const handleCardClick = (roomId) => {
+    navigate(`/room/${roomId}`);
+  };
 
   const toggleForm = () => {
     setShowForm((prev) => !prev);
@@ -36,7 +41,11 @@ function Rooms() {
       {/* 방 리스트 */}
       <div className="room-list">
         {rooms.map((room) => (
-          <div className="room-card" key={room.id}>
+          <div
+            className="room-card"
+            key={room.id}
+            onClick={() => handleCardClick(room.id)} // ✅ 클릭 이벤트
+          >
             <img src={room.img} className="room-image" alt="방 이미지" />
             <div className="room-title">{room.title}</div>
             <div className="room-desc">{room.desc}</div>
