@@ -48,6 +48,23 @@ function RoomDetail() {
     return () => clearTimeout(timeout); // 타이머 초기화
   }, [htmlCode, cssCode, jsCode, storageKey]);
 
+  //참여자 자동등록
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const participantsKey = `participants_${id}`;
+    if (!currentUser) return;
+
+    const saved = JSON.parse(localStorage.getItem(participantsKey)) || [];
+
+    if (!saved.includes(currentUser.id)) {
+      const updated = [...saved, currentUser.id];
+      localStorage.setItem(participantsKey, JSON.stringify(updated));
+      setParticipants(updated);
+    } else {
+      setParticipants(saved);
+    }
+  }, [id]);
+
   //채팅입력
   const handleSendMessage = () => {
     if (chatInput.trim() === "") return;
@@ -72,9 +89,19 @@ function RoomDetail() {
   };
 
   const navigate = useNavigate();
+  //퇴장 방나가기
 
   const handleExit = () => {
-    navigate("/rooms"); // ✅ Rooms.jsx가 매핑된 경로로 이동
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const participantsKey = `participants_${id}`;
+
+    if (currentUser) {
+      const saved = JSON.parse(localStorage.getItem(participantsKey)) || [];
+      const updated = saved.filter((name) => name !== currentUser.id);
+      localStorage.setItem(participantsKey, JSON.stringify(updated));
+    }
+
+    navigate("/rooms");
   };
 
   //채팅창 토글
@@ -84,11 +111,7 @@ function RoomDetail() {
 
   //프로필
   const [showParticipants, setShowParticipants] = useState(false);
-  const [participants, setParticipants] = useState([
-    "FE_10_이슬비",
-    "FE_10_이상호",
-    "FE_10_천승현",
-  ]);
+  const [participants, setParticipants] = useState([]);
 
   // 콘솔용 HTML 생성 함수
   const generateConsoleCode = () => {
