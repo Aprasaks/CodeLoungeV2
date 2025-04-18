@@ -18,6 +18,7 @@ function RoomDetail() {
   const [hasRun, setHasRun] = useState(false);
   const [runKey, setRunKey] = useState(0); // iframe 강제 리렌더용
   const iframeRef = useRef();
+  const [showChat, setShowChat] = useState(false);
 
   const handleRunClick = () => {
     setHasRun(true);
@@ -28,6 +29,11 @@ function RoomDetail() {
 
   const handleExit = () => {
     navigate("/rooms"); // ✅ Rooms.jsx가 매핑된 경로로 이동
+  };
+
+  //채팅창 토글
+  const handleToggleChat = () => {
+    setShowChat((prev) => !prev);
   };
 
   // 콘솔용 HTML 생성 함수
@@ -74,7 +80,9 @@ function RoomDetail() {
             <span className="participant-icon">👤</span>
             <span className="participant-count">1</span>
           </div>
-          <button className="chat-button">채팅하기</button>
+          <button className="chat-button" onClick={handleToggleChat}>
+            채팅하기
+          </button>
           <button className="exit-button" onClick={handleExit}>
             방 나가기
           </button>
@@ -182,6 +190,25 @@ function RoomDetail() {
           </div>
         </div>
       </div>
+      {showChat && (
+        <div className="chat-panel">
+          <div className="chat-header">
+            채팅
+            <button className="close-chat" onClick={handleToggleChat}>
+              ✕
+            </button>
+          </div>
+          <div className="chat-messages">
+            {/* 메시지 예시 */}
+            <div className="chat-message">어서오세요!</div>
+            <div className="chat-message">반갑습니다~</div>
+          </div>
+          <div className="chat-input-area">
+            <input type="text" placeholder="채팅을 입력하세요" />
+            <button>전송</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

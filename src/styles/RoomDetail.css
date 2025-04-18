@@ -192,3 +192,94 @@
 .exit-button:hover {
   background-color: #e04e4e;
 }
+
+/* 채팅 패널 (슬라이드 박스) */
+.chat-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: rgba(30, 30, 30, 0.95);
+  border-left: 1px solid #444;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.chat-header {
+  padding: 12px;
+  background-color: #222;
+  border-bottom: 1px solid #333;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.close-chat {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: white;
+}
+
+.chat-message {
+  background-color: #2e2e2e;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 6px;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #333;
+  background-color: #1c1c1c;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+}
+
+.chat-input-area button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  background-color: #5c67f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.chat-input-area button:hover {
+  background-color: #4a54c6;
+}
