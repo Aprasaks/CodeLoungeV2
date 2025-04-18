@@ -12,13 +12,13 @@ function Login() {
 
   // 회원가입 상태
   const [signupName, setSignupName] = useState("");
-  const [signupEmail, setSignupEmail] = useState("");
+  const [signupId, setSignupId] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
 
   // ✅ 로그인 함수
   const handleLogin = () => {
     if (!loginEmail || !loginPassword) {
-      alert("이메일과 비밀번호를 모두 입력해주세요.");
+      alert("아이디와 비밀번호를 모두 입력해주세요.");
       return;
     }
 
@@ -27,11 +27,11 @@ function Login() {
 
     // ⬇️ 입력한 이메일/비밀번호와 일치하는 유저 찾기
     const matchedUser = users.find(
-      (user) => user.email === loginEmail && user.password === loginPassword
+      (user) => user.id === loginEmail && user.password === loginPassword
     );
 
     if (!matchedUser) {
-      alert("이메일 또는 비밀번호가 틀렸습니다.");
+      alert("아이디 또는 비밀번호가 틀렸습니다.");
       return;
     }
 
@@ -44,7 +44,7 @@ function Login() {
 
   // ✅ 회원가입 함수
   const handleSignup = () => {
-    if (!signupName || !signupEmail || !signupPassword) {
+    if (!signupName || !signupId || !signupPassword) {
       alert("모든 값을 입력해주세요.");
       return;
     }
@@ -52,7 +52,7 @@ function Login() {
     // ⬇️ 새로운 유저 정보 생성
     const newUser = {
       name: signupName,
-      email: signupEmail,
+      id: signupId,
       password: signupPassword,
     };
 
@@ -62,7 +62,7 @@ function Login() {
     // ⬇️ 중복 이메일 방지
     const alreadyExists = users.some((u) => u.email === signupEmail);
     if (alreadyExists) {
-      alert("이미 가입된 이메일입니다.");
+      alert("이미 사용 중인 아이디입니다.");
       return;
     }
 
@@ -81,11 +81,12 @@ function Login() {
           <div className="form login-form">
             <h2>Sign In</h2>
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="ID"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
             />
+
             <input
               type="password"
               placeholder="Password"
@@ -107,10 +108,10 @@ function Login() {
               onChange={(e) => setSignupName(e.target.value)}
             />
             <input
-              type="email"
-              placeholder="Email"
-              value={signupEmail}
-              onChange={(e) => setSignupEmail(e.target.value)}
+              type="text"
+              placeholder="ID"
+              value={signupId}
+              onChange={(e) => setSignupId(e.target.value)}
             />
             <input
               type="password"
