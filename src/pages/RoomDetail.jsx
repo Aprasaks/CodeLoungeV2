@@ -20,6 +20,24 @@ function RoomDetail() {
   const iframeRef = useRef();
   const [showChat, setShowChat] = useState(false);
 
+  //채팅입력
+  const handleSendMessage = () => {
+    if (chatInput.trim() === "") return;
+
+    const newMessage = {
+      id: Date.now(),
+      sender: "나", // 추후 로그인 사용자명으로 대체 가능
+      text: chatInput,
+    };
+
+    setChatMessages((prev) => [...prev, newMessage]);
+    setChatInput(""); // 입력창 초기화
+  };
+
+  //채팅창입력 상태
+  const [chatInput, setChatInput] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
+
   const handleRunClick = () => {
     setHasRun(true);
     setRunKey((prev) => prev + 1);
@@ -199,13 +217,27 @@ function RoomDetail() {
             </button>
           </div>
           <div className="chat-messages">
-            {/* 메시지 예시 */}
-            <div className="chat-message">어서오세요!</div>
-            <div className="chat-message">반갑습니다~</div>
+            {chatMessages.length === 0 ? (
+              <div className="console-empty">채팅이 없습니다.</div>
+            ) : (
+              chatMessages.map((msg) => (
+                <div key={msg.id} className="chat-message">
+                  <strong>{msg.sender}</strong>: {msg.text}
+                </div>
+              ))
+            )}
           </div>
           <div className="chat-input-area">
-            <input type="text" placeholder="채팅을 입력하세요" />
-            <button>전송</button>
+            <input
+              type="text"
+              placeholder="채팅을 입력하세요"
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") handleSendMessage(); // 엔터 전송
+              }}
+            />
+            <button onClick={handleSendMessage}>전송</button>
           </div>
         </div>
       )}
