@@ -185,7 +185,7 @@
   font-size: 14px;
   border-radius: 8px;
   cursor: pointer;
-  margin-right: 8px;
+  margin-right: 0px;
   margin-top: 0px;
 }
 
@@ -374,4 +374,21 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
+}
+
+/*방 삭제*/
+.delete-button {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 0px;
+  margin-top: 0;
+}
+
+.delete-button:hover {
+  background-color: #cc0000;
 }

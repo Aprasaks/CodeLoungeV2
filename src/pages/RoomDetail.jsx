@@ -112,6 +112,19 @@ function RoomDetail() {
     navigate("/rooms");
   };
 
+  //방 삭제
+  const handleDeleteRoom = () => {
+    if (!window.confirm("정말 이 방을 삭제하시겠습니까?")) return;
+
+    const updatedRooms = rooms.filter((r) => r.id !== Number(id));
+    localStorage.setItem("codeRooms", JSON.stringify(updatedRooms));
+
+    localStorage.removeItem(`roomCode_${id}`);
+    localStorage.removeItem(`participants_${id}`);
+
+    navigate("/rooms");
+  };
+
   //수정 저장 핸들러
   const handleRoomInfoSave = () => {
     const updatedRooms = rooms.map((r) =>
@@ -207,6 +220,11 @@ function RoomDetail() {
           <button className="exit-button" onClick={handleExit}>
             방 나가기
           </button>
+          {isOwner && (
+            <button className="delete-button" onClick={handleDeleteRoom}>
+              방 삭제
+            </button>
+          )}
         </div>
       </div>
 
