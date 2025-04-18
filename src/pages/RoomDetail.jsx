@@ -10,6 +10,10 @@ function RoomDetail() {
   const rooms = JSON.parse(localStorage.getItem("codeRooms")) || [];
   const room = rooms.find((r) => r.id === Number(id));
 
+  //방수정 권한
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const isOwner = currentUser?.id === room?.owner;
+
   //고유키
   const storageKey = `roomCode_${id}`;
 
@@ -18,6 +22,10 @@ function RoomDetail() {
   const [htmlCode, setHtmlCode] = useState("");
   const [cssCode, setCssCode] = useState("");
   const [jsCode, setJsCode] = useState("");
+
+  // 방 제목/설명 수정용 상태
+  const [titleInput, setTitleInput] = useState(room?.title || "");
+  const [descInput, setDescInput] = useState(room?.desc || "");
 
   const [hasRun, setHasRun] = useState(false);
   const [runKey, setRunKey] = useState(0); // iframe 강제 리렌더용
@@ -104,6 +112,15 @@ function RoomDetail() {
     navigate("/rooms");
   };
 
+  //수정 저장 핸들러
+  const handleRoomInfoSave = () => {
+    const updatedRooms = rooms.map((r) =>
+      r.id === Number(id) ? { ...r, title: titleInput, desc: descInput } : r
+    );
+    localStorage.setItem("codeRooms", JSON.stringify(updatedRooms));
+    alert("방 정보가 수정되었습니다.");
+  };
+
   //채팅창 토글
   const handleToggleChat = () => {
     setShowChat((prev) => !prev);
@@ -151,7 +168,28 @@ function RoomDetail() {
     <div className="room-detail-container">
       {/* 상단 헤더 */}
       <div className="room-header">
-        <div className="room-title">{room?.title || "코드방"}</div>
+        {isOwner ? (
+          <div className="room-edit">
+            <input
+              className="room-title-input"
+              value={titleInput}
+              onChange={(e) => setTitleInput(e.target.value)}
+            />
+            <textarea
+              className="room-desc-input"
+              value={descInput}
+              onChange={(e) => setDescInput(e.target.value)}
+            />
+            <button className="save-room-info-btn" onClick={handleRoomInfoSave}>
+              저장
+            </button>
+          </div>
+        ) : (
+          <div className="room-title">
+            {room?.title}
+            <div className="room-desc">{room?.desc}</div>
+          </div>
+        )}
         <div className="chat-box">
           <div className="participant-info">
             <span

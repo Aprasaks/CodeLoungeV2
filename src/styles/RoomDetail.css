@@ -339,3 +339,39 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+/*Room 제목 설명 수정*/
+.room-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.room-title-input {
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #222;
+  color: white;
+  border: none;
+}
+
+.room-desc-input {
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #222;
+  color: white;
+  border: none;
+  resize: none;
+  height: 50px;
+}
+
+.save-room-info-btn {
+  background-color: #5c67f2;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}

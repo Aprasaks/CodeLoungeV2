@@ -27,10 +27,13 @@ function Rooms() {
   const handleCreateRoom = () => {
     if (!title.trim()) return alert("방 제목을 입력해주세요!");
 
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")); // 객체 정보 만들기 저장
+
     const newRoom = {
       id: Date.now(),
       title,
       desc,
+      owner: currentUser.id,
       img: `https://picsum.photos/300/200?sig=${Date.now()}`, // 랜덤 이미지
     };
 
